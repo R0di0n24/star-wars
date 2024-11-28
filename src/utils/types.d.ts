@@ -14,3 +14,16 @@ export interface HeroInfo {
     eye_color: string
     // [key: string]: string;
 }
+export interface Item {
+    title: string,
+    path: string
+}
+
+export interface Hero {
+    name: string,
+    img: string,
+    url: string
+}
+export interface Characters {
+    [key: string]: Hero
+}
