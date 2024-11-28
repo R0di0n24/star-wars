@@ -1,11 +1,11 @@
 import {useEffect, useState} from "react";
 import {characters, period_month} from "../utils/constants.ts";
 import {HeroInfo} from "../utils/types";
-import withErrorPage from "../hoc/withErrorPage.tsx";
-interface Props {
+import {withErrorPage} from "../hoc/withErrorPage.tsx";
+interface AboutMeProps {
     heroId?: string
 }
-const AboutMe = ({heroId}: Props) => {
+const AboutMe = ({heroId}: AboutMeProps) => {
     const [hero, setHero] = useState<HeroInfo>();
     console.log(heroId);
     // const {heroId=defaultHero} = useParams();

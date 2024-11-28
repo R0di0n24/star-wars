@@ -1,5 +1,5 @@
 import {starWarsInfo} from "../utils/constants.ts";
-import withErrorPage from "../hoc/withErrorPage.tsx";
+import {withErrorPage} from "../hoc/withErrorPage.tsx";
 
 const StarWars = () => {
         return (
