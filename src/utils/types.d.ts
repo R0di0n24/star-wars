@@ -1,3 +1,5 @@
+import {FunctionComponent} from "react";
+
 export interface SWContextValue {
     hero: string;
     changeHero: (page: string) => void;
@@ -26,5 +28,12 @@ export interface Hero {
 }
 export interface Characters {
     [key: string]: Hero
+}
+
+export  interface Wrapper {
+    Component: FunctionComponent,
+    props?: {
+        [key: string]: string
+    }
 }
 // export interface CharactersKeys keyof Character

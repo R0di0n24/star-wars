@@ -1,26 +1,20 @@
-import {useContext, useEffect, useState} from "react";
-import {characters, defaultHero, period_month} from "../utils/constants.ts";
+import {useEffect, useState} from "react";
+import {characters, period_month} from "../utils/constants.ts";
 import {HeroInfo} from "../utils/types";
-import {useParams} from "react-router-dom";
-import {SWContext} from "../utils/context.ts";
-import ErrorPage from "./ErrorPage.tsx";
-
-
-const AboutMe = () => {
+import withErrorPage from "../hoc/withErrorPage.tsx";
+interface Props {
+    heroId?: string
+}
+const AboutMe = ({heroId}: Props) => {
     const [hero, setHero] = useState<HeroInfo>();
-    const {heroId=defaultHero}  = useParams();
-    const {changeHero} = useContext(SWContext)
-
+    console.log(heroId);
+    // const {heroId=defaultHero} = useParams();
     useEffect(() => {
-        if(!characters[heroId]){
-            return;
-        }
-        changeHero(heroId);
-        const hero = JSON.parse(localStorage.getItem(heroId)!);
+                const hero = JSON.parse(localStorage.getItem(heroId!)!);
         if (hero && ((Date.now() - hero.timestamp) < period_month)) {
             setHero(hero.payload);
         } else {
-            fetch(`${characters[heroId].url}`)
+            fetch(`${characters[heroId!].url}`)
                 .then(response => response.json())
                 .then(data => {
                     const info = {
@@ -34,7 +28,7 @@ const AboutMe = () => {
                         eye_color: data.eye_color
                     }
                     setHero(info);
-                    localStorage.setItem(heroId, JSON.stringify({
+                    localStorage.setItem(heroId!, JSON.stringify({
                         payload: info,
                         timestamp: Date.now()
                     }));
@@ -43,7 +37,7 @@ const AboutMe = () => {
 
     }, [heroId])
 
-    return characters[heroId]? (
+    return (
         <>
             {(!!hero) &&
                 <div
@@ -58,7 +52,7 @@ const AboutMe = () => {
                 </div>
             }
         </>
-    ):<ErrorPage/>
+    )
 }
 
-export default AboutMe;
+export default withErrorPage(AboutMe);
